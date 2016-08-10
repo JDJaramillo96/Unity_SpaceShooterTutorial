@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+	private bool restart;
+	private bool gameOver;
 	[SerializeField]
 	private GameObject hazard;
 	[SerializeField]
@@ -24,8 +26,6 @@ public class GameController : MonoBehaviour {
 	private Text gameOverText;
 	[SerializeField]
 	private Text restartText;
-	private bool restart;
-	private bool gameOver;
 
 	void Start ()
 	{
@@ -41,11 +41,7 @@ public class GameController : MonoBehaviour {
 
 	void Update()
 	{
-		if (restart)
-		{
-			if (Input.GetKeyDown (KeyCode.R))
-				SceneManager.LoadScene ("Main");
-		}
+		if (restart) if (Input.GetKeyDown (KeyCode.R)) SceneManager.LoadScene ("Main");
 	}
 
 	IEnumerator SpawnWaves()
@@ -64,12 +60,7 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(waveWait);
 
-			if (gameOver)
-			{
-				restartText.text = "Press 'R' for restart";
-				restart = true;
-				break;
-			}
+			if (gameOver) break;
 		}
 	}
 
@@ -88,5 +79,7 @@ public class GameController : MonoBehaviour {
 	{
 		gameOverText.text = "Game Over";
 		gameOver = true;
+		restartText.text = "Press 'R' for restart";
+		restart = true;
 	}
 }

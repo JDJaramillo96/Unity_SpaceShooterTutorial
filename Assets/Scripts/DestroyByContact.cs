@@ -14,17 +14,14 @@ public class DestroyByContact : MonoBehaviour {
 	{
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 
-		if (gameControllerObject != null)
-			gameController = gameControllerObject.GetComponent<GameController> ();
+		if (gameControllerObject != null) gameController = gameControllerObject.GetComponent<GameController> ();
 
-		if (gameControllerObject == null)
-			Debug.Log ("Cannot find GameController script");
+		if (gameControllerObject == null) Debug.Log ("Cannot find GameController script");
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Boundary")
-			return;
+		if (other.tag == "Boundary") return;
 
 		Instantiate(explosion, transform.position, transform.rotation);
 
@@ -34,8 +31,7 @@ public class DestroyByContact : MonoBehaviour {
 			gameController.GameOver ();
 		}
 
-		if (other.tag == "Bolt")
-			gameController.AddScore (scoreValue);
+		if (other.tag == "Bolt") gameController.AddScore (scoreValue);
 
 		Destroy(other.gameObject);
 		Destroy(gameObject);

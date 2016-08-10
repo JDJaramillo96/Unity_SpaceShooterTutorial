@@ -22,15 +22,17 @@ public class PlayerController : MonoBehaviour {
 	private Transform spawnShot;
 	[SerializeField]
 	private AudioSource audio;
+	private ButtonsFunction buttonsFunction;
 
 	void Awake()
 	{
 		audio = GetComponent<AudioSource> ();
+		buttonsFunction = GameObject.Find ("GameController").GetComponent<ButtonsFunction> ();
 	}
 
 	void Update()
 	{
-		if (Input.GetButtonDown ("Fire1"))
+		if (Input.GetButtonDown ("Fire1") && buttonsFunction.menuActive == false)
 		{
 			Instantiate (shot, spawnShot.position, spawnShot.rotation);
 			audio.Play ();
